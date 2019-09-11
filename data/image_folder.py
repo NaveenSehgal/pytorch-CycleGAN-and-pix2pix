@@ -9,6 +9,7 @@ import torch.utils.data as data
 from PIL import Image
 import os
 import os.path
+import numpy as np
 
 IMG_EXTENSIONS = [
     '.jpg', '.JPG', '.jpeg', '.JPEG',
@@ -29,7 +30,9 @@ def make_dataset(dir, max_dataset_size=float("inf")):
             if is_image_file(fname):
                 path = os.path.join(root, fname)
                 images.append(path)
-    return images[:min(max_dataset_size, len(images))]
+
+    # Change to random sample of images if there's a max dataset size
+    return np.random.choice(images, min(max_dataset_size, len(images)), replace=False)
 
 
 def default_loader(path):

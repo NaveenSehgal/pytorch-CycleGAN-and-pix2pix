@@ -20,5 +20,10 @@ class TestOptions(BaseOptions):
         parser.set_defaults(model='test')
         # To avoid cropping, the load_size should be the same as crop_size
         parser.set_defaults(load_size=parser.get_default('crop_size'))
+        parser.add_argument('--segmentation_data',  default=False, action="store_true", help="Use this only if you are using a dataset where background was segmented out, and only the human pixels are shown.")
+        parser.add_argument('--backgrounds-path', default=None, help="If using segmentation data, have to set the directory of the background images.")
+        parser.add_argument('--indir', default=None)
+        parser.add_argument('--outdir', default=None)
+
         self.isTrain = False
         return parser
